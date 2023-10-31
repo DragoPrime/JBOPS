@@ -101,25 +101,25 @@ for user in TAUTULLI_USERS:
         OUTPUT = '{} was last seen {} ago'.format(USERNAME, time_format(TOTAL_SECONDS))
 
     if UID not in PLEX_USERS.keys():
-        print('{}, and exists in Tautulli but does not exist in Plex. Skipping.'.format(OUTPUT))
+        print('{}, și există în Tautulli, dar nu există în Plex. Se sare peste.'.format(OUTPUT))
         continue
 
     TOTAL_SECONDS = TOTAL_SECONDS or 86400 * UNSHARE_LIMIT
     if TOTAL_SECONDS >= (REMOVE_LIMIT * 86400):
         if DRY_RUN:
-            print('{}, and would be removed.'.format(OUTPUT))
+            print('{}, și va fi șters.'.format(OUTPUT))
         else:
-            print('{}, and has reached their shareless threshold. Removing.'.format(OUTPUT))
+            print('{}, și și-a atins pragul fără acțiuni. Se va șterge.'.format(OUTPUT))
             ACCOUNT.removeFriend(PLEX_USERS[UID])
     elif TOTAL_SECONDS >= (UNSHARE_LIMIT * 86400):
         if DRY_RUN:
-            print('{}, and would unshare libraries.'.format(OUTPUT))
+            print('{}, și se va anula accesul la biblioteci.'.format(OUTPUT))
         else:
 
             for server in ACCOUNT.user(PLEX_USERS[UID]).servers:
                 if server.machineIdentifier == SERVER.machineIdentifier and server.sections():
-                    print('{}, and has reached their inactivity limit. Unsharing.'.format(OUTPUT))
+                    print('{}, și a atins limita de inactivitate. Anularea distribuirii.'.format(OUTPUT))
                     ACCOUNT.updateFriend(PLEX_USERS[UID], SERVER, SECTIONS, removeSections=True)
                 else:
-                    print("{}, has already been unshared, but has not reached their shareless threshold."
-                          "Skipping.".format(OUTPUT))
+                    print("{}, a fost deja anulat share-ul, dar nu a atins pragul de share."
+                          "Se sare peste.".format(OUTPUT))
