@@ -44,9 +44,9 @@ if __name__ == "__main__":
     
     if movie.originallyAvailableAt >= threshold_date:
         movie.addCollection(opts.collection)
-        print("Added collection '{}' to '{}'.".format(opts.collection, movie.title.encode('UTF-8')))
+        print("Adăugată colecția '{}' la '{}'.".format(opts.collection, movie.title.encode('UTF-8')))
         
     for m in movie.section().search(collection=opts.collection):
         if m.originallyAvailableAt < threshold_date:
             m.removeCollection(opts.collection)
-            print("Removed collection '{}' from '{}'.".format(opts.collection, m.title.encode('UTF-8')))
+            print("Ștearsă colecția '{}' de la '{}'.".format(opts.collection, m.title.encode('UTF-8')))
